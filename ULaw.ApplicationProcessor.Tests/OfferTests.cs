@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ULaw.ApplicationProcessor;
 using ULaw.ApplicationProcessor.Enums;
 
 namespace ULaw.ApplicationProcessor.Tests
@@ -15,18 +14,18 @@ namespace ULaw.ApplicationProcessor.Tests
         private const string OfferEmailForTwoOneLawAndBusinessDegreeResult = @"<html><body><h1>Your Recent Application from the University of Law</h1><p> Dear Test, </p><p/> Further to your recent application, we are delighted to offer you a place on our course reference: ABC123 starting on 22 September 2019.<br/> This offer will be subject to evidence of your qualifying Law and Business degree at grade: 2:1.<br/> Please contact us as soon as possible to confirm your acceptance of your place and arrange payment of the £350.00 deposit fee to secure your place.<br/> We look forward to welcoming you to the University,<br/> Yours sincerely,<p/> The Admissions Team,</body></html>";
 
         private const string FurtherInfoEmailResult = @"<html><body><h1>Your Recent Application from the University of Law</h1><p> Dear Test, </p><p/> Further to your recent application for our course reference: ABC123 starting on 22 September 2019, we are writing to inform you that we are currently assessing your information and will be in touch shortly.<br/> If you wish to discuss any aspect of your application, please contact us at AdmissionsTeam@Ulaw.co.uk.<br/> Yours sincerely,<p/> The Admissions Team,</body></html>";
-        private const string RejectionEmailForAnyThirdDegreeResult = @"<html><body><h1>Your Recent Application from the University of Law</h1><p> Dear Test, </p><p/> Further to your recent application, we are sorry to inform you that you have not been successful on this occasion.<br/> If you wish to discuss the decision further, or discuss the possibility of applying for an alternative course with us, please contact us at AdmissionsTeam@Ulaw.co.uk.<br> Yours sincerely,<p/> The Admissions Team,</body></html>";
+        private const string RejectionEmailForAnyThirdDegreeResult = @"<html><body><h1>Your Recent Application from the University of Law</h1><p> Dear Test, </p><p/> Further to your recent application, we are sorry to inform you that you have not been successful on this occasion.<br/> If you wish to discuss the decision further, or discuss the possibility of applying for an alternative course with us, please contact us at AdmissionsTeam@Ulaw.co.uk.<br/> Yours sincerely,<p/> The Admissions Team,</body></html>";
 
         [TestMethod]
         public void ApplicationSubmissionWithFirstLawDegree()
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.first;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.law;
+            thisSubmission.DegreeGrade = DegreeGrade.First;
+            thisSubmission.DegreeSubject = DegreeSubject.Law;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, OfferEmailForFirstLawDegreeResult);
+            Assert.AreEqual(OfferEmailForFirstLawDegreeResult, emailHtml);
         }
 
         [TestMethod]
@@ -34,11 +33,11 @@ namespace ULaw.ApplicationProcessor.Tests
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.first;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.lawAndBusiness;
+            thisSubmission.DegreeGrade = DegreeGrade.First;
+            thisSubmission.DegreeSubject = DegreeSubject.LawAndBusiness;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, OfferEmailForFirstLawAndBusinessDegreeResult);
+            Assert.AreEqual(OfferEmailForFirstLawAndBusinessDegreeResult, emailHtml);
         }
 
         [TestMethod]
@@ -46,11 +45,11 @@ namespace ULaw.ApplicationProcessor.Tests
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.first;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.English;
+            thisSubmission.DegreeGrade = DegreeGrade.First;
+            thisSubmission.DegreeSubject = DegreeSubject.English;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, FurtherInfoEmailResult);
+            Assert.AreEqual(FurtherInfoEmailResult, emailHtml);
         }
 
         [TestMethod]
@@ -58,11 +57,11 @@ namespace ULaw.ApplicationProcessor.Tests
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.twoOne;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.law;
+            thisSubmission.DegreeGrade = DegreeGrade.TwoOne;
+            thisSubmission.DegreeSubject = DegreeSubject.Law;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, OfferEmailForTwoOneLawDegreeResult);
+            Assert.AreEqual(OfferEmailForTwoOneLawDegreeResult, emailHtml);
         }
 
         [TestMethod]
@@ -71,11 +70,11 @@ namespace ULaw.ApplicationProcessor.Tests
 
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.twoOne;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.maths;
+            thisSubmission.DegreeGrade = DegreeGrade.TwoOne;
+            thisSubmission.DegreeSubject = DegreeSubject.Maths;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, FurtherInfoEmailResult);
+            Assert.AreEqual(FurtherInfoEmailResult, emailHtml);
         }
 
         [TestMethod]
@@ -83,11 +82,11 @@ namespace ULaw.ApplicationProcessor.Tests
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.twoOne;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.lawAndBusiness;
+            thisSubmission.DegreeGrade = DegreeGrade.TwoOne;
+            thisSubmission.DegreeSubject = DegreeSubject.LawAndBusiness;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, OfferEmailForTwoOneLawAndBusinessDegreeResult);
+            Assert.AreEqual(OfferEmailForTwoOneLawAndBusinessDegreeResult, emailHtml);
         }
 
         [TestMethod]
@@ -95,11 +94,11 @@ namespace ULaw.ApplicationProcessor.Tests
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.twoTwo;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.English;
+            thisSubmission.DegreeGrade = DegreeGrade.TwoTwo;
+            thisSubmission.DegreeSubject = DegreeSubject.English;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, FurtherInfoEmailResult);
+            Assert.AreEqual(FurtherInfoEmailResult, emailHtml);
         }
 
         [TestMethod]
@@ -107,11 +106,11 @@ namespace ULaw.ApplicationProcessor.Tests
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.twoTwo;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.law;
+            thisSubmission.DegreeGrade = DegreeGrade.TwoTwo;
+            thisSubmission.DegreeSubject = DegreeSubject.Law;
 
             string emailHtml = thisSubmission.Process();
-            Assert.AreEqual(emailHtml, FurtherInfoEmailResult);
+            Assert.AreEqual(FurtherInfoEmailResult, emailHtml);
         }
 
         [TestMethod]
@@ -119,8 +118,8 @@ namespace ULaw.ApplicationProcessor.Tests
         {
             Application thisSubmission = new Application("Law", "ABC123", new DateTime(2019, 9, 22), "Mr", "Test", "Tester", new DateTime(1991, 08, 14), false);
 
-            thisSubmission.DegreeGrade = DegreeGradeEnum.third;
-            thisSubmission.DegreeSubject = DegreeSubjectEnum.maths;
+            thisSubmission.DegreeGrade = DegreeGrade.Third;
+            thisSubmission.DegreeSubject = DegreeSubject.Maths;
 
             string emailHtml = thisSubmission.Process();
             Assert.AreEqual(emailHtml, RejectionEmailForAnyThirdDegreeResult);
